@@ -14,7 +14,7 @@ def get_move
     cyan("C") + " = " + cyan("Cyan")
   loop do
     str = gets.chomp.strip
-    return Code.new(str) if str.length == 4 && str =~ /[RGYBMC]/i
+    return Code.new(str) if str =~ /[RGYBMC]{4}/i
     puts "INVALID MOVE"
   end 
 end
@@ -32,4 +32,5 @@ loop do
   
   break if board.full || wins
 end
-  
+
+board.print_board

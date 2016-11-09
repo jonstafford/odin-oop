@@ -1,11 +1,17 @@
 module Colors
   
-  def color(text, effect)
-    "\e[#{effect}m#{text}\e[0m"
+  def color(text, effect, background=nil)
+    bg = 
+    if background.nil?
+      ""
+    else
+      ";" + background.to_s
+    end
+    "\e[#{effect}#{bg}m#{text}\e[0m"
   end
   
   def black(text)
-    color(text, 30)
+    color(text, 30, 47)
   end
   
   def red(text)
@@ -33,7 +39,7 @@ module Colors
   end
   
   def white(text)
-    color(text, 37)
+    color(text, 37, 40)
   end
   
 end
