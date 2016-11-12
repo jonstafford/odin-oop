@@ -30,44 +30,26 @@ class Code
       end
     end
     
-    other_placeless.sort!
-    placeless.sort!
+    # Now look for right colors in the wrong place
     just_color = 0
-    Board::CHOICES.split("").sort.each do |c|
-      while !placeless.empty? && !other_placeless.empty? do
-        
-        starts = c == placeless[0].to_s
-        other_starts = c == other_placeless[0].to_s
-        
-        if (starts && other_starts)
-          
-          placeless.shift
-          other_placeless.shift
-          just_color += 1
-        elsif starts
-          # shift off the placeless array any unmatched `c` characters
-          while (!placeless.empty?) do 
-            if (c == placeless[0].to_s)
-              placeless.shift
-            else
-              break
-            end  
-          end
-        elsif other_starts
-          # shift off the other_placeless array any unmatched `c` characters
-          while (!other_placeless.empty?) do
-            if (c == other_placeless[0].to_s)
-              other_placeless.shift
-            else
-              break
-            end
-          end
-        else
-          break
-        end
-      end
+    
+    # Hashes for how many of each color
+    other_counts = Hash.new(0)
+    counts = Hash.new(0)
+    
+    other_placeless.each do |sym|
+      other_counts[sym] += 1
     end
     
+    placeless.each do |sym|
+      counts[sym] += 1
+    end
+    
+    # Count of right color in wrong place is the overlap of the hashes
+    other_counts.each do |other_sym, other_count|
+      just_color += [other_count, counts[other_sym] || 0].min
+    end
+        
     [place_and_color, just_color]
   end
 end
