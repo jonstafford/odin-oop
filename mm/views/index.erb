@@ -1,0 +1,30 @@
+<html>
+  <head>
+		<style>
+		  body {
+		    background: #999999;
+				font-family:Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New, monospace;
+		  }
+		</style>
+  </head>
+  <body>
+		<h1>Mastermind game</h1>
+		<p>
+			<% instructions.each do |l| %>
+		  <%= l %><br>
+			<% end %>
+		</p>
+    <form method='post'>
+			Your guess:<br>
+      <input type='text' name='guess' autocomplete='off' /><br>
+      <input type='submit' value='Submit' />
+    </form>
+		<h3><%= status %></h3>
+		<% board_view.each do |l| %>
+	  <%= l %><br>
+		<% end %>
+		<p>
+			<a href="/newgame">Restart</a>
+		</p>
+  </body>
+</html>
